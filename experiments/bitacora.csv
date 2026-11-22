@@ -1,0 +1,2 @@
+name,seed,hidden,activation,dropout,norm,optimizer,lr,batch_size,weight_decay,scheduler,best_epoch,val_f1_macro,val_acc,n_params,train_time_s,device,nota
+baseline_hls4ml,0,64-32-32,relu,0.0,,adam,0.001,1024,0.0,none,41,0.7725,0.76924,4389,87.1,mps,"Referencia: arquitectura 16-64-32-32-5 ReLU de Duarte et al. (2018), JINST 13 P07027"
