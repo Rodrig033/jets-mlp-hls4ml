@@ -1,0 +1,25 @@
+{
+  "name": "e2_128x5",
+  "nota": "E2 profundidad 5",
+  "hidden": [
+    128,
+    128,
+    128,
+    128,
+    128
+  ],
+  "activation": "relu",
+  "dropout": 0.0,
+  "norm": null,
+  "init": "default",
+  "optimizer": "adam",
+  "lr": 0.003,
+  "weight_decay": 0.0,
+  "batch_size": 4096,
+  "epochs": 120,
+  "patience": 15,
+  "scheduler": "none",
+  "split_seed": 42,
+  "device": "auto",
+  "seed": 0
+}

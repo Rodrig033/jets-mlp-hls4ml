@@ -1,0 +1,16 @@
+{
+  "name": "e2_256-256-256",
+  "seed": 0,
+  "best_epoch": 42,
+  "epochs_run": 57,
+  "val_f1_macro": 0.7752628801910333,
+  "val_acc": 0.7727068273092369,
+  "val_loss": 0.6364642752069067,
+  "n_params": 137221,
+  "train_time_s": 75.4,
+  "device": "mps",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "processor": "arm",
+  "python": "3.12.11",
+  "torch": "2.14.1"
+}

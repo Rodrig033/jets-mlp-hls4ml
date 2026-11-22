@@ -1,0 +1,23 @@
+{
+  "name": "e2_256-256-256",
+  "nota": "E2 ancho uniforme",
+  "hidden": [
+    256,
+    256,
+    256
+  ],
+  "activation": "relu",
+  "dropout": 0.0,
+  "norm": null,
+  "init": "default",
+  "optimizer": "adam",
+  "lr": 0.003,
+  "weight_decay": 0.0,
+  "batch_size": 4096,
+  "epochs": 120,
+  "patience": 15,
+  "scheduler": "none",
+  "split_seed": 42,
+  "device": "auto",
+  "seed": 0
+}
