@@ -1,0 +1,19 @@
+# Datos crudos: se descargan con src/data.py (OpenML id 42468)
+data/*
+!data/.gitkeep
+
+# Python
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.venv/
+venv/
+.env
+
+# Sistema / editores
+.DS_Store
+.vscode/
+.idea/
+
+# Se versionan a propósito: splits/*.npz, experiments/**/best.pt,
+# experiments/bitacora.csv, metrics.json, history.csv y docs/fig/*.png
