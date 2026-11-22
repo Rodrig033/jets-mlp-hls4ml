@@ -76,6 +76,23 @@ def eval_loss(model, X, y, loss_fn, batch=8192):
     return total / len(X)
 
 
+def append_row(path, row):
+    """Agrega una fila a la bitácora; si aparecen columnas nuevas, reescribe
+    el encabezado conservando todas las filas anteriores (celdas vacías)."""
+    rows, fields = [], list(row.keys())
+    if path.exists():
+        with open(path, newline="") as f:
+            r = csv.DictReader(f)
+            old = r.fieldnames or []
+            rows = list(r)
+        fields = old + [k for k in row if k not in old]
+    rows.append(row)
+    with open(path, "w", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=fields, restval="")
+        w.writeheader()
+        w.writerows(rows)
+
+
 def build_optimizer(cfg, params):
     name = cfg.get("optimizer", "adam").lower()
     lr, wd = cfg["lr"], cfg.get("weight_decay", 0.0)
@@ -105,7 +122,9 @@ def build_scheduler(cfg, opt, steps_per_epoch):
 def run(cfg, seed):
     set_seed(seed)
     device = pick_device(cfg.get("device", "auto"))
-    d = prepare(split_seed=cfg.get("split_seed", 42))  # sin prueba
+    d = prepare(split_seed=cfg.get("split_seed", 42),  # sin prueba
+                transform=cfg.get("transform", "standard"),
+                drop_features=tuple(cfg.get("drop_features", [])))
 
     Xtr = torch.tensor(d["X_train"], device=device)
     ytr = torch.tensor(d["y_train"], device=device)
@@ -201,13 +220,10 @@ def run(cfg, seed):
            "scheduler": cfg.get("scheduler", "none"), "best_epoch": best_epoch,
            "val_f1_macro": round(best["val_f1_macro"], 5), "val_acc": round(best["val_acc"], 5),
            "n_params": metrics["n_params"], "train_time_s": metrics["train_time_s"],
-           "device": str(device), "nota": cfg.get("nota", "")}
-    new = not log.exists()
-    with open(log, "a", newline="") as f:
-        w = csv.DictWriter(f, fieldnames=row.keys())
-        if new:
-            w.writeheader()
-        w.writerow(row)
+           "device": str(device), "nota": cfg.get("nota", ""),
+           "transform": cfg.get("transform", "standard"),
+           "drop_features": "|".join(cfg.get("drop_features", []))}
+    append_row(log, row)
 
     print(f"\nListo: {name} | F1-macro val {best['val_f1_macro']:.4f} | "
           f"acc val {best['val_acc']:.4f} | {metrics['n_params']} params | {elapsed:.0f}s")

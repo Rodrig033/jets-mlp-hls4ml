@@ -1,3 +1,12 @@
+"""
+Grafica curvas de pérdida y F1-macro de una o varias corridas y diagnostica
+subajuste / sobreajuste a partir de la brecha entre pérdida de entrenamiento
+y validación en la mejor época.
+
+Uso:
+    python -m scripts.curvas baseline_hls4ml_s0
+    python -m scripts.curvas baseline_hls4ml_s0 e1_lr3e-3_bs1024_s0
+"""
 import sys
 
 import matplotlib
@@ -35,4 +44,9 @@ def main(nombres):
 
 
 if __name__ == "__main__":
+    if len(sys.argv) < 2:
+        disponibles = sorted(p.name for p in EXP.iterdir() if (p / "history.csv").exists())
+        print("Uso: python -m scripts.curvas <corrida> [<corrida> ...]\nCorridas disponibles:")
+        print("  " + "\n  ".join(disponibles))
+        sys.exit(1)
     main(sys.argv[1:])

@@ -1,0 +1,16 @@
+{
+  "descripcion": "Etapa 5 - selección final con 3 semillas. Candidatas: referencia de E4, cosine (mejor de E4) y la combinación de las variantes que mejoraron en E4. Se incluye el modelo base para tener su media ± desv. est. con las mismas semillas.",
+  "base": "configs/base_e4.json",
+  "variantes": [
+    {"name": "e4_ref", "nota": "E4 referencia (= e2_256-128-64)"},
+    {"name": "e4_cosine", "scheduler": "cosine", "epochs": 60, "patience": 60,
+     "nota": "E4 cosine annealing 60 épocas, sin early stopping"},
+    {"name": "e5_combo", "scheduler": "cosine", "epochs": 60, "patience": 60,
+     "activation": "silu", "transform": "yeojohnson", "drop_features": ["d2_a1_b1_mmdt"],
+     "nota": "E5 cosine + SiLU + Yeo-Johnson + sin D2 duplicada"},
+    {"name": "baseline_hls4ml", "hidden": [64, 32, 32], "activation": "relu", "lr": 0.001,
+     "batch_size": 1024, "epochs": 50, "patience": 10, "scheduler": "none",
+     "transform": "standard", "drop_features": [],
+     "nota": "Referencia: arquitectura 16-64-32-32-5 ReLU de Duarte et al. (2018), JINST 13 P07027"}
+  ]
+}

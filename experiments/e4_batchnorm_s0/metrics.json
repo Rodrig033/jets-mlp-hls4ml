@@ -1,0 +1,16 @@
+{
+  "name": "e4_batchnorm",
+  "seed": 0,
+  "best_epoch": 26,
+  "epochs_run": 41,
+  "val_f1_macro": 0.7755865428236055,
+  "val_acc": 0.7727309236947791,
+  "val_loss": 0.6346867234352602,
+  "n_params": 46725,
+  "train_time_s": 43.5,
+  "device": "mps",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "processor": "arm",
+  "python": "3.12.11",
+  "torch": "2.14.1"
+}

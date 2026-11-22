@@ -1,0 +1,20 @@
+{
+  "name": "base_e4",
+  "nota": "Base de E4: mejor arquitectura de E2 (provisional hasta confirmar con E3)",
+  "hidden": [256, 128, 64],
+  "activation": "relu",
+  "dropout": 0.0,
+  "norm": null,
+  "init": "default",
+  "optimizer": "adam",
+  "lr": 0.003,
+  "weight_decay": 0.0,
+  "batch_size": 4096,
+  "epochs": 120,
+  "patience": 15,
+  "scheduler": "none",
+  "transform": "standard",
+  "drop_features": [],
+  "split_seed": 42,
+  "device": "auto"
+}

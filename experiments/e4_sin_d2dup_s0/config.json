@@ -1,0 +1,27 @@
+{
+  "name": "e4_sin_d2dup",
+  "nota": "E4 quita columna id\u00e9ntica a d2_b1_mmdt (15 entradas)",
+  "hidden": [
+    256,
+    128,
+    64
+  ],
+  "activation": "relu",
+  "dropout": 0.0,
+  "norm": null,
+  "init": "default",
+  "optimizer": "adam",
+  "lr": 0.003,
+  "weight_decay": 0.0,
+  "batch_size": 4096,
+  "epochs": 120,
+  "patience": 15,
+  "scheduler": "none",
+  "transform": "standard",
+  "drop_features": [
+    "d2_a1_b1_mmdt"
+  ],
+  "split_seed": 42,
+  "device": "auto",
+  "seed": 0
+}

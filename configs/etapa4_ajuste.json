@@ -1,0 +1,14 @@
+{
+  "descripcion": "Etapa 4 - ajuste fino sobre 256-128-64 (lr 3e-3, bs 4096). Cada variante cambia UNA sola cosa respecto a la base (ablación), para atribuir cualquier efecto a esa decisión.",
+  "base": "configs/base_e4.json",
+  "variantes": [
+    {"name": "e4_ref",            "nota": "E4 referencia (= e2_256-128-64)"},
+    {"name": "e4_cosine",         "scheduler": "cosine", "epochs": 60, "patience": 60, "nota": "E4 cosine annealing 60 épocas, sin early stopping"},
+    {"name": "e4_batchnorm",      "norm": "batch", "nota": "E4 BatchNorm tras cada capa lineal"},
+    {"name": "e4_dropout0.1",     "dropout": 0.1, "nota": "E4 regularización: redes grandes paraban temprano en E2"},
+    {"name": "e4_adamw_wd1e-4",   "optimizer": "adamw", "weight_decay": 0.0001, "nota": "E4 weight decay desacoplado"},
+    {"name": "e4_silu",           "activation": "silu", "nota": "E4 activación suave (SiLU/Swish)"},
+    {"name": "e4_yeojohnson",     "transform": "yeojohnson", "nota": "E4 reduce asimetría (skew -2.2 a 2.4 en EDA)"},
+    {"name": "e4_sin_d2dup",      "drop_features": ["d2_a1_b1_mmdt"], "nota": "E4 quita columna idéntica a d2_b1_mmdt (15 entradas)"}
+  ]
+}

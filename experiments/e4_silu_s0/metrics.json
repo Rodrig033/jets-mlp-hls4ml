@@ -1,0 +1,16 @@
+{
+  "name": "e4_silu",
+  "seed": 0,
+  "best_epoch": 70,
+  "epochs_run": 85,
+  "val_f1_macro": 0.7765378777112834,
+  "val_acc": 0.7739919678714859,
+  "val_loss": 0.6296172809256129,
+  "n_params": 45829,
+  "train_time_s": 67.6,
+  "device": "mps",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "processor": "arm",
+  "python": "3.12.11",
+  "torch": "2.14.1"
+}

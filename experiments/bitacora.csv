@@ -1,18 +1,34 @@
-name,seed,hidden,activation,dropout,norm,optimizer,lr,batch_size,weight_decay,scheduler,best_epoch,val_f1_macro,val_acc,n_params,train_time_s,device,nota
-baseline_hls4ml,0,64-32-32,relu,0.0,,adam,0.001,1024,0.0,none,41,0.7725,0.76924,4389,87.1,mps,"Referencia: arquitectura 16-64-32-32-5 ReLU de Duarte et al. (2018), JINST 13 P07027"
-e1_lr3e-4_bs256,0,64-32-32,relu,0.0,,adam,0.0003,256,0.0,none,48,0.77302,0.7701,4389,408.5,mps,"E1 lr bajo, batch chico"
-e1_lr1e-3_bs256,0,64-32-32,relu,0.0,,adam,0.001,256,0.0,none,48,0.77454,0.77158,4389,421.0,mps,E1
-e1_lr3e-3_bs256,0,64-32-32,relu,0.0,,adam,0.003,256,0.0,none,46,0.77376,0.77131,4389,420.8,mps,E1
-e1_lr3e-4_bs1024,0,64-32-32,relu,0.0,,adam,0.0003,1024,0.0,none,48,0.77031,0.76704,4389,93.8,mps,E1
-e1_lr3e-3_bs1024,0,64-32-32,relu,0.0,,adam,0.003,1024,0.0,none,36,0.77358,0.77129,4389,80.3,mps,E1
-e1_lr1e-3_bs4096,0,64-32-32,relu,0.0,,adam,0.001,4096,0.0,none,49,0.77115,0.76802,4389,27.9,mps,E1
-e1_lr3e-3_bs4096,0,64-32-32,relu,0.0,,adam,0.003,4096,0.0,none,48,0.77372,0.77071,4389,26.6,mps,"E1 lr alto, batch grande"
-e1_lr1e-2_bs4096,0,64-32-32,relu,0.0,,adam,0.01,4096,0.0,none,49,0.77369,0.77082,4389,26.3,mps,E1
-e2_64-32-32_control,0,64-32-32,relu,0.0,,adam,0.003,4096,0.0,none,58,0.77389,0.77124,4389,42.9,mps,E2 control: red base con 120 épocas
-e2_128-64-32,0,128-64-32,relu,0.0,,adam,0.003,4096,0.0,none,84,0.77557,0.77281,12677,68.1,mps,E2 ancho x2
-e2_128-128-128,0,128-128-128,relu,0.0,,adam,0.003,4096,0.0,none,63,0.77567,0.77344,35845,59.6,mps,E2 ancho uniforme
-e2_256-128-64,0,256-128-64,relu,0.0,,adam,0.003,4096,0.0,none,46,0.77609,0.77308,45829,47.1,mps,E2 piramidal
-e2_256-256-256,0,256-256-256,relu,0.0,,adam,0.003,4096,0.0,none,42,0.77526,0.77271,137221,75.4,mps,E2 ancho uniforme
-e2_128x5,0,128-128-128-128-128,relu,0.0,,adam,0.003,4096,0.0,none,53,0.77492,0.77207,68869,70.1,mps,E2 profundidad 5
-e2_512-256-128,0,512-256-128,relu,0.0,,adam,0.003,4096,0.0,none,23,0.7752,0.77255,173573,60.1,mps,E2 piramidal grande
-e2_512-512-512,0,512-512-512,relu,0.0,,adam,0.003,4096,0.0,none,30,0.77548,0.77303,536581,137.6,mps,E2 la más grande; correr con --solo si tarda
+name,seed,hidden,activation,dropout,norm,optimizer,lr,batch_size,weight_decay,scheduler,best_epoch,val_f1_macro,val_acc,n_params,train_time_s,device,nota,transform,drop_features
+baseline_hls4ml,0,64-32-32,relu,0.0,,adam,0.001,1024,0.0,none,41,0.7725,0.76924,4389,87.1,mps,"Referencia: arquitectura 16-64-32-32-5 ReLU de Duarte et al. (2018), JINST 13 P07027",,
+e1_lr3e-4_bs256,0,64-32-32,relu,0.0,,adam,0.0003,256,0.0,none,48,0.77302,0.7701,4389,408.5,mps,"E1 lr bajo, batch chico",,
+e1_lr1e-3_bs256,0,64-32-32,relu,0.0,,adam,0.001,256,0.0,none,48,0.77454,0.77158,4389,421.0,mps,E1,,
+e1_lr3e-3_bs256,0,64-32-32,relu,0.0,,adam,0.003,256,0.0,none,46,0.77376,0.77131,4389,420.8,mps,E1,,
+e1_lr3e-4_bs1024,0,64-32-32,relu,0.0,,adam,0.0003,1024,0.0,none,48,0.77031,0.76704,4389,93.8,mps,E1,,
+e1_lr3e-3_bs1024,0,64-32-32,relu,0.0,,adam,0.003,1024,0.0,none,36,0.77358,0.77129,4389,80.3,mps,E1,,
+e1_lr1e-3_bs4096,0,64-32-32,relu,0.0,,adam,0.001,4096,0.0,none,49,0.77115,0.76802,4389,27.9,mps,E1,,
+e1_lr3e-3_bs4096,0,64-32-32,relu,0.0,,adam,0.003,4096,0.0,none,48,0.77372,0.77071,4389,26.6,mps,"E1 lr alto, batch grande",,
+e1_lr1e-2_bs4096,0,64-32-32,relu,0.0,,adam,0.01,4096,0.0,none,49,0.77369,0.77082,4389,26.3,mps,E1,,
+e2_64-32-32_control,0,64-32-32,relu,0.0,,adam,0.003,4096,0.0,none,58,0.77389,0.77124,4389,42.9,mps,E2 control: red base con 120 épocas,,
+e2_128-64-32,0,128-64-32,relu,0.0,,adam,0.003,4096,0.0,none,84,0.77557,0.77281,12677,68.1,mps,E2 ancho x2,,
+e2_128-128-128,0,128-128-128,relu,0.0,,adam,0.003,4096,0.0,none,63,0.77567,0.77344,35845,59.6,mps,E2 ancho uniforme,,
+e2_256-128-64,0,256-128-64,relu,0.0,,adam,0.003,4096,0.0,none,46,0.77609,0.77308,45829,47.1,mps,E2 piramidal,,
+e2_256-256-256,0,256-256-256,relu,0.0,,adam,0.003,4096,0.0,none,42,0.77526,0.77271,137221,75.4,mps,E2 ancho uniforme,,
+e2_128x5,0,128-128-128-128-128,relu,0.0,,adam,0.003,4096,0.0,none,53,0.77492,0.77207,68869,70.1,mps,E2 profundidad 5,,
+e2_512-256-128,0,512-256-128,relu,0.0,,adam,0.003,4096,0.0,none,23,0.7752,0.77255,173573,60.1,mps,E2 piramidal grande,,
+e2_512-512-512,0,512-512-512,relu,0.0,,adam,0.003,4096,0.0,none,30,0.77548,0.77303,536581,137.6,mps,E2 la más grande; correr con --solo si tarda,,
+e2_64-32-32_control,1,64-32-32,relu,0.0,,adam,0.003,4096,0.0,none,107,0.77528,0.77208,4389,63.7,mps,E2 control: red base con 120 épocas,standard,
+e2_64-32-32_control,2,64-32-32,relu,0.0,,adam,0.003,4096,0.0,none,87,0.77415,0.77164,4389,53.0,mps,E2 control: red base con 120 épocas,standard,
+e2_256-128-64,1,256-128-64,relu,0.0,,adam,0.003,4096,0.0,none,50,0.77552,0.77223,45829,50.2,mps,E2 piramidal,standard,
+e2_256-128-64,2,256-128-64,relu,0.0,,adam,0.003,4096,0.0,none,49,0.7762,0.77276,45829,49.7,mps,E2 piramidal,standard,
+e2_128-128-128,1,128-128-128,relu,0.0,,adam,0.003,4096,0.0,none,46,0.77525,0.77233,35845,41.2,mps,E2 ancho uniforme,standard,
+e2_128-128-128,2,128-128-128,relu,0.0,,adam,0.003,4096,0.0,none,59,0.7759,0.77298,35845,50.9,mps,E2 ancho uniforme,standard,
+e2_128-64-32,1,128-64-32,relu,0.0,,adam,0.003,4096,0.0,none,61,0.7752,0.77185,12677,40.0,mps,E2 ancho x2,standard,
+e2_128-64-32,2,128-64-32,relu,0.0,,adam,0.003,4096,0.0,none,67,0.7757,0.77279,12677,44.8,mps,E2 ancho x2,standard,
+e4_ref,0,256-128-64,relu,0.0,,adam,0.003,4096,0.0,none,46,0.77609,0.77308,45829,51.9,mps,E4 referencia (= e2_256-128-64),standard,
+e4_cosine,0,256-128-64,relu,0.0,,adam,0.003,4096,0.0,cosine,49,0.77677,0.77419,45829,52.1,mps,"E4 cosine annealing 60 épocas, sin early stopping",standard,
+e4_batchnorm,0,256-128-64,relu,0.0,batch,adam,0.003,4096,0.0,none,26,0.77559,0.77273,46725,43.5,mps,E4 BatchNorm tras cada capa lineal,standard,
+e4_dropout0.1,0,256-128-64,relu,0.1,,adam,0.003,4096,0.0,none,53,0.77528,0.77298,45829,63.0,mps,E4 regularización: redes grandes paraban temprano en E2,standard,
+e4_adamw_wd1e-4,0,256-128-64,relu,0.0,,adamw,0.003,4096,0.0001,none,53,0.77571,0.77337,45829,55.0,mps,E4 weight decay desacoplado,standard,
+e4_silu,0,256-128-64,silu,0.0,,adam,0.003,4096,0.0,none,70,0.77654,0.77399,45829,67.6,mps,E4 activación suave (SiLU/Swish),standard,
+e4_yeojohnson,0,256-128-64,relu,0.0,,adam,0.003,4096,0.0,none,81,0.77642,0.77394,45829,77.1,mps,E4 reduce asimetría (skew -2.2 a 2.4 en EDA),yeojohnson,
+e4_sin_d2dup,0,256-128-64,relu,0.0,,adam,0.003,4096,0.0,none,66,0.77607,0.77339,45573,72.2,mps,E4 quita columna idéntica a d2_b1_mmdt (15 entradas),standard,d2_a1_b1_mmdt

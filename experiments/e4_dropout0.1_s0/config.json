@@ -1,0 +1,25 @@
+{
+  "name": "e4_dropout0.1",
+  "nota": "E4 regularizaci\u00f3n: redes grandes paraban temprano en E2",
+  "hidden": [
+    256,
+    128,
+    64
+  ],
+  "activation": "relu",
+  "dropout": 0.1,
+  "norm": null,
+  "init": "default",
+  "optimizer": "adam",
+  "lr": 0.003,
+  "weight_decay": 0.0,
+  "batch_size": 4096,
+  "epochs": 120,
+  "patience": 15,
+  "scheduler": "none",
+  "transform": "standard",
+  "drop_features": [],
+  "split_seed": 42,
+  "device": "auto",
+  "seed": 0
+}

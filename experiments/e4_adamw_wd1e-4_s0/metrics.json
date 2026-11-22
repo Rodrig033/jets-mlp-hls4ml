@@ -1,0 +1,16 @@
+{
+  "name": "e4_adamw_wd1e-4",
+  "seed": 0,
+  "best_epoch": 53,
+  "epochs_run": 68,
+  "val_f1_macro": 0.7757144847322214,
+  "val_acc": 0.7733654618473895,
+  "val_loss": 0.6323857482255223,
+  "n_params": 45829,
+  "train_time_s": 55.0,
+  "device": "mps",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "processor": "arm",
+  "python": "3.12.11",
+  "torch": "2.14.1"
+}

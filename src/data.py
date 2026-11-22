@@ -191,15 +191,42 @@ class Standardizer:
         return ((X - self.mean_) / self.std_).astype(np.float32)
 
 
-def prepare(split_seed: int = 42, include_test: bool = False):
+class YeoJohnson:
+    """
+    Transformación de potencia Yeo-Johnson + estandarización (sklearn).
+    Reduce la asimetría de variables sesgadas. Se ajusta SOLO con entrenamiento.
+    """
+
+    def fit(self, X):
+        from sklearn.preprocessing import PowerTransformer
+        self.pt = PowerTransformer(method="yeo-johnson", standardize=True)
+        # Ajustar sobre una submuestra fija de entrenamiento basta para estimar
+        # los lambdas y evita que tarde minutos con 581k filas.
+        rng = np.random.default_rng(0)
+        idx = rng.choice(len(X), size=min(100_000, len(X)), replace=False)
+        self.pt.fit(X[idx].astype(np.float64))
+        self.mean_ = self.std_ = None
+        return self
+
+    def transform(self, X):
+        return self.pt.transform(X.astype(np.float64)).astype(np.float32)
+
+
+def prepare(split_seed: int = 42, include_test: bool = False,
+            transform: str = "standard", drop_features=()):
     """
     Punto de entrada para entrenamiento. Por defecto NO devuelve prueba:
     la prueba solo se toca en la evaluación final (scripts/evaluate_test.py).
+
+    transform: "standard" (z-score) o "yeojohnson" (potencia + z-score).
+    drop_features: nombres de columnas a excluir (p. ej. la D2 duplicada).
     """
     df = load_dataframe()
+    if drop_features:
+        df = df.drop(columns=list(drop_features))
     X, y, feature_names, class_names = encode(df)
     tr, va, te = get_split(y, seed=split_seed)
-    scaler = Standardizer().fit(X[tr])
+    scaler = (YeoJohnson() if transform == "yeojohnson" else Standardizer()).fit(X[tr])
     out = {
         "X_train": scaler.transform(X[tr]), "y_train": y[tr],
         "X_val": scaler.transform(X[va]), "y_val": y[va],

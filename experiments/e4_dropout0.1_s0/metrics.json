@@ -1,0 +1,16 @@
+{
+  "name": "e4_dropout0.1",
+  "seed": 0,
+  "best_epoch": 53,
+  "epochs_run": 68,
+  "val_f1_macro": 0.7752768113737158,
+  "val_acc": 0.7729799196787148,
+  "val_loss": 0.6325406330273333,
+  "n_params": 45829,
+  "train_time_s": 63.0,
+  "device": "mps",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "processor": "arm",
+  "python": "3.12.11",
+  "torch": "2.14.1"
+}
