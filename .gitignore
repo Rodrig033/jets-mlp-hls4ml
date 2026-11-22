@@ -1,6 +1,7 @@
 # Datos crudos: se descargan con src/data.py (OpenML id 42468)
 data/*
 !data/.gitkeep
+!data/DATA_INFO.json
 
 # Python
 __pycache__/

@@ -24,18 +24,111 @@ SPLIT_DIR = ROOT / "splits"
 TARGET = "class"
 
 
+ARFF_URL = "https://api.openml.org/data/v1/download/21854360/hls4ml_lhc_jets_hlf.arff"
+ARFF_FILE = ROOT / "data" / "hls4ml_lhc_jets_hlf.arff"
+INFO_FILE = ROOT / "data" / "DATA_INFO.json"
+
+
+def _hashes(path: Path):
+    import hashlib
+    md5, sha = hashlib.md5(), hashlib.sha256()
+    with open(path, "rb") as f:
+        for chunk in iter(lambda: f.read(1 << 20), b""):
+            md5.update(chunk)
+            sha.update(chunk)
+    return md5.hexdigest(), sha.hexdigest()
+
+
+def _download_arff():
+    """Descarga directa del ARFF con barra de progreso simple."""
+    import urllib.request
+    ARFF_FILE.parent.mkdir(parents=True, exist_ok=True)
+    tmp = ARFF_FILE.with_suffix(".part")
+    print(f"Descarga directa: {ARFF_URL}")
+    with urllib.request.urlopen(ARFF_URL) as r, open(tmp, "wb") as f:
+        total = int(r.headers.get("Content-Length") or 0)
+        done = 0
+        while chunk := r.read(1 << 20):
+            f.write(chunk)
+            done += len(chunk)
+            msg = f"{done / 1e6:7.1f} MB" + (f" / {total / 1e6:.1f} MB" if total else "")
+            print("\r  " + msg, end="", flush=True)
+    print()
+    tmp.rename(ARFF_FILE)
+
+
+def _parse_arff(path: Path) -> pd.DataFrame:
+    """Lector ARFF mínimo: atributos del encabezado + bloque @data como CSV."""
+    cols = []
+    with open(path, "r", encoding="utf-8") as f:
+        for line in f:
+            s = line.strip()
+            if s.lower().startswith("@attribute"):
+                cols.append(s.split()[1].strip("'\""))
+            elif s.lower().startswith("@data"):
+                break
+        df = pd.read_csv(f, header=None, names=cols, comment="%",
+                         quotechar="'", skipinitialspace=True)
+    return df
+
+
+def _validate(df: pd.DataFrame):
+    """Chequeos de integridad que sustituyen al md5 de OpenML."""
+    assert TARGET in df.columns, f"No existe la columna '{TARGET}'"
+    assert df.shape[1] == 17, f"Se esperaban 17 columnas, hay {df.shape[1]}"
+    assert int(df.isna().sum().sum()) == 0, "Hay valores faltantes/no parseables"
+    n_cls = df[TARGET].nunique()
+    assert n_cls == 5, f"Se esperaban 5 clases, hay {n_cls}"
+
+
 def download(force: bool = False) -> Path:
-    """Descarga el dataset de OpenML una sola vez y lo guarda como CSV local."""
+    """
+    Descarga el dataset una sola vez y lo guarda como CSV local.
+
+    1) Intenta sklearn.fetch_openml (verifica el md5 registrado en OpenML).
+    2) Si OpenML reporta un md5 que no coincide con el archivo que sirve
+       (inconsistencia observada el 2026-11-22: esperado b0cade1d...,
+       servido c5c0f961... en dos descargas idénticas), descarga el ARFF
+       directamente, valida su estructura y registra sus hashes en
+       data/DATA_INFO.json para que la versión usada quede documentada.
+    Si ya tienes el .arff en data/, se usa sin descargar.
+    """
     if DATA_FILE.exists() and not force:
         return DATA_FILE
-    from sklearn.datasets import fetch_openml
-
-    print(f"Descargando OpenML id={OPENML_ID} (puede tardar unos minutos)...")
-    bunch = fetch_openml(data_id=OPENML_ID, as_frame=True, parser="auto")
-    df = bunch.frame
     DATA_FILE.parent.mkdir(parents=True, exist_ok=True)
+    info = {"openml_id": OPENML_ID, "url": ARFF_URL,
+            "fecha_descarga": pd.Timestamp.now().isoformat(timespec="seconds")}
+
+    df = None
+    if not ARFF_FILE.exists():
+        try:
+            from sklearn.datasets import fetch_openml
+            print(f"Descargando OpenML id={OPENML_ID} con fetch_openml...")
+            df = fetch_openml(data_id=OPENML_ID, as_frame=True, parser="auto").frame
+            info["metodo"] = "sklearn.fetch_openml (md5 verificado)"
+        except ValueError as e:
+            if "md5" not in str(e):
+                raise
+            print("\nAVISO: el md5 registrado en OpenML no coincide con el archivo servido.")
+            print("Se usará descarga directa + validación estructural.\n")
+            info["aviso_md5_openml"] = str(e).split("description:")[-1].strip()
+            _download_arff()
+
+    if df is None:
+        df = _parse_arff(ARFF_FILE)
+        md5, sha = _hashes(ARFF_FILE)
+        info.update({"metodo": info.get("metodo", "ARFF local / descarga directa"),
+                     "arff_md5": md5, "arff_sha256": sha})
+
+    _validate(df)
+    df[TARGET] = df[TARGET].astype(str).str.strip()
+    info.update({"filas": int(len(df)), "columnas": int(df.shape[1]),
+                 "clases": df[TARGET].value_counts().sort_index().to_dict()})
     df.to_csv(DATA_FILE, index=False)
+    import json
+    json.dump(info, open(INFO_FILE, "w"), indent=2, ensure_ascii=False)
     print(f"Guardado en {DATA_FILE} -> {df.shape}")
+    print(f"Registro de integridad en {INFO_FILE}")
     return DATA_FILE
 
 

@@ -1,0 +1,18 @@
+{
+  "openml_id": 42468,
+  "url": "https://api.openml.org/data/v1/download/21854360/hls4ml_lhc_jets_hlf.arff",
+  "fecha_descarga": "2026-11-22T12:44:04",
+  "aviso_md5_openml": "expected: b0cade1d843feb6199c746918453c378 but got c5c0f96117bac32d0cb785a5e2e0bc62. Downloaded file could have been modified / corrupted, clean cache and retry...",
+  "metodo": "ARFF local / descarga directa",
+  "arff_md5": "b0cade1d843feb6199c746918453c378",
+  "arff_sha256": "9afad460cb4d595faae7dabfe158bf1d7a0c7c31cde874131fbfa8f84e7a4d4c",
+  "filas": 830000,
+  "columnas": 17,
+  "clases": {
+    "g": 167125,
+    "q": 161066,
+    "t": 167851,
+    "w": 167083,
+    "z": 166875
+  }
+}
