@@ -1,0 +1,23 @@
+{
+  "name": "e1_lr1e-3_bs4096",
+  "nota": "E1",
+  "hidden": [
+    64,
+    32,
+    32
+  ],
+  "activation": "relu",
+  "dropout": 0.0,
+  "norm": null,
+  "init": "default",
+  "optimizer": "adam",
+  "lr": 0.001,
+  "weight_decay": 0.0,
+  "batch_size": 4096,
+  "epochs": 50,
+  "patience": 10,
+  "scheduler": "none",
+  "split_seed": 42,
+  "device": "auto",
+  "seed": 0
+}

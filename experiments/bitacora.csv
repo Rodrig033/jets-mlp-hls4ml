@@ -1,2 +1,10 @@
 name,seed,hidden,activation,dropout,norm,optimizer,lr,batch_size,weight_decay,scheduler,best_epoch,val_f1_macro,val_acc,n_params,train_time_s,device,nota
 baseline_hls4ml,0,64-32-32,relu,0.0,,adam,0.001,1024,0.0,none,41,0.7725,0.76924,4389,87.1,mps,"Referencia: arquitectura 16-64-32-32-5 ReLU de Duarte et al. (2018), JINST 13 P07027"
+e1_lr3e-4_bs256,0,64-32-32,relu,0.0,,adam,0.0003,256,0.0,none,48,0.77302,0.7701,4389,408.5,mps,"E1 lr bajo, batch chico"
+e1_lr1e-3_bs256,0,64-32-32,relu,0.0,,adam,0.001,256,0.0,none,48,0.77454,0.77158,4389,421.0,mps,E1
+e1_lr3e-3_bs256,0,64-32-32,relu,0.0,,adam,0.003,256,0.0,none,46,0.77376,0.77131,4389,420.8,mps,E1
+e1_lr3e-4_bs1024,0,64-32-32,relu,0.0,,adam,0.0003,1024,0.0,none,48,0.77031,0.76704,4389,93.8,mps,E1
+e1_lr3e-3_bs1024,0,64-32-32,relu,0.0,,adam,0.003,1024,0.0,none,36,0.77358,0.77129,4389,80.3,mps,E1
+e1_lr1e-3_bs4096,0,64-32-32,relu,0.0,,adam,0.001,4096,0.0,none,49,0.77115,0.76802,4389,27.9,mps,E1
+e1_lr3e-3_bs4096,0,64-32-32,relu,0.0,,adam,0.003,4096,0.0,none,48,0.77372,0.77071,4389,26.6,mps,"E1 lr alto, batch grande"
+e1_lr1e-2_bs4096,0,64-32-32,relu,0.0,,adam,0.01,4096,0.0,none,49,0.77369,0.77082,4389,26.3,mps,E1

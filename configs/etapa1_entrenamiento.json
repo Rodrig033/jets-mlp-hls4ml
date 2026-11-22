@@ -1,0 +1,14 @@
+{
+  "descripcion": "Etapa 1 - dinámica de entrenamiento. Arquitectura base FIJA (64-32-32); solo cambian learning rate y batch size. Objetivo: separar el efecto del optimizador del efecto de la arquitectura antes de cambiar capacidad.",
+  "base": "configs/baseline.json",
+  "variantes": [
+    {"name": "e1_lr3e-4_bs256",  "lr": 0.0003, "batch_size": 256,  "nota": "E1 lr bajo, batch chico"},
+    {"name": "e1_lr1e-3_bs256",  "lr": 0.001,  "batch_size": 256,  "nota": "E1"},
+    {"name": "e1_lr3e-3_bs256",  "lr": 0.003,  "batch_size": 256,  "nota": "E1"},
+    {"name": "e1_lr3e-4_bs1024", "lr": 0.0003, "batch_size": 1024, "nota": "E1"},
+    {"name": "e1_lr3e-3_bs1024", "lr": 0.003,  "batch_size": 1024, "nota": "E1"},
+    {"name": "e1_lr1e-3_bs4096", "lr": 0.001,  "batch_size": 4096, "nota": "E1"},
+    {"name": "e1_lr3e-3_bs4096", "lr": 0.003,  "batch_size": 4096, "nota": "E1 lr alto, batch grande"},
+    {"name": "e1_lr1e-2_bs4096", "lr": 0.01,   "batch_size": 4096, "nota": "E1"}
+  ]
+}

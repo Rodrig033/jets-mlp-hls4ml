@@ -1,0 +1,14 @@
+{
+  "descripcion": "Etapa 2 - capacidad. lr=3e-3, batch=4096, hasta 120 épocas (patience 15). E1 mostró subajuste (brecha train/val = -0.0007) y que el optimizador no era el cuello de botella. El primer run es un CONTROL: misma red base con más épocas, para separar el efecto de las épocas del de la capacidad.",
+  "base": "configs/base_e2.json",
+  "variantes": [
+    {"name": "e2_64-32-32_control",   "hidden": [64, 32, 32],          "nota": "E2 control: red base con 120 épocas"},
+    {"name": "e2_128-64-32",          "hidden": [128, 64, 32],         "nota": "E2 ancho x2"},
+    {"name": "e2_128-128-128",        "hidden": [128, 128, 128],       "nota": "E2 ancho uniforme"},
+    {"name": "e2_256-128-64",         "hidden": [256, 128, 64],        "nota": "E2 piramidal"},
+    {"name": "e2_256-256-256",        "hidden": [256, 256, 256],       "nota": "E2 ancho uniforme"},
+    {"name": "e2_128x5",              "hidden": [128, 128, 128, 128, 128], "nota": "E2 profundidad 5"},
+    {"name": "e2_512-256-128",        "hidden": [512, 256, 128],       "nota": "E2 piramidal grande"},
+    {"name": "e2_512-512-512",        "hidden": [512, 512, 512],       "nota": "E2 la más grande; correr con --solo si tarda"}
+  ]
+}
