@@ -1,0 +1,16 @@
+{
+  "name": "e4_cosine",
+  "seed": 1,
+  "best_epoch": 58,
+  "epochs_run": 60,
+  "val_f1_macro": 0.7761282944380536,
+  "val_acc": 0.7736305220883534,
+  "val_loss": 0.6283391729262938,
+  "n_params": 45829,
+  "train_time_s": 46.7,
+  "device": "mps",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "processor": "arm",
+  "python": "3.12.11",
+  "torch": "2.14.1"
+}

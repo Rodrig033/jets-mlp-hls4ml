@@ -1,0 +1,16 @@
+{
+  "name": "baseline_hls4ml",
+  "seed": 2,
+  "best_epoch": 36,
+  "epochs_run": 46,
+  "val_f1_macro": 0.7724838861390616,
+  "val_acc": 0.7693333333333333,
+  "val_loss": 0.6427402802681828,
+  "n_params": 4389,
+  "train_time_s": 78.8,
+  "device": "mps",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "processor": "arm",
+  "python": "3.12.11",
+  "torch": "2.14.1"
+}

@@ -32,3 +32,12 @@ e4_adamw_wd1e-4,0,256-128-64,relu,0.0,,adamw,0.003,4096,0.0001,none,53,0.77571,0
 e4_silu,0,256-128-64,silu,0.0,,adam,0.003,4096,0.0,none,70,0.77654,0.77399,45829,67.6,mps,E4 activación suave (SiLU/Swish),standard,
 e4_yeojohnson,0,256-128-64,relu,0.0,,adam,0.003,4096,0.0,none,81,0.77642,0.77394,45829,77.1,mps,E4 reduce asimetría (skew -2.2 a 2.4 en EDA),yeojohnson,
 e4_sin_d2dup,0,256-128-64,relu,0.0,,adam,0.003,4096,0.0,none,66,0.77607,0.77339,45573,72.2,mps,E4 quita columna idéntica a d2_b1_mmdt (15 entradas),standard,d2_a1_b1_mmdt
+e4_ref,1,256-128-64,relu,0.0,,adam,0.003,4096,0.0,none,50,0.77552,0.77223,45829,56.2,mps,E4 referencia (= e2_256-128-64),standard,
+e4_ref,2,256-128-64,relu,0.0,,adam,0.003,4096,0.0,none,49,0.7762,0.77276,45829,51.7,mps,E4 referencia (= e2_256-128-64),standard,
+e4_cosine,1,256-128-64,relu,0.0,,adam,0.003,4096,0.0,cosine,58,0.77613,0.77363,45829,46.7,mps,"E4 cosine annealing 60 épocas, sin early stopping",standard,
+e4_cosine,2,256-128-64,relu,0.0,,adam,0.003,4096,0.0,cosine,53,0.77712,0.77457,45829,46.6,mps,"E4 cosine annealing 60 épocas, sin early stopping",standard,
+e5_combo,0,256-128-64,silu,0.0,,adam,0.003,4096,0.0,cosine,54,0.77739,0.77486,45573,52.7,mps,E5 cosine + SiLU + Yeo-Johnson + sin D2 duplicada,yeojohnson,d2_a1_b1_mmdt
+e5_combo,1,256-128-64,silu,0.0,,adam,0.003,4096,0.0,cosine,58,0.77696,0.77456,45573,53.3,mps,E5 cosine + SiLU + Yeo-Johnson + sin D2 duplicada,yeojohnson,d2_a1_b1_mmdt
+e5_combo,2,256-128-64,silu,0.0,,adam,0.003,4096,0.0,cosine,53,0.77705,0.7745,45573,52.1,mps,E5 cosine + SiLU + Yeo-Johnson + sin D2 duplicada,yeojohnson,d2_a1_b1_mmdt
+baseline_hls4ml,1,64-32-32,relu,0.0,,adam,0.001,1024,0.0,none,48,0.77322,0.77014,4389,85.1,mps,"Referencia: arquitectura 16-64-32-32-5 ReLU de Duarte et al. (2018), JINST 13 P07027",standard,
+baseline_hls4ml,2,64-32-32,relu,0.0,,adam,0.001,1024,0.0,none,36,0.77248,0.76933,4389,78.8,mps,"Referencia: arquitectura 16-64-32-32-5 ReLU de Duarte et al. (2018), JINST 13 P07027",standard,

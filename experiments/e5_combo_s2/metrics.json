@@ -1,0 +1,16 @@
+{
+  "name": "e5_combo",
+  "seed": 2,
+  "best_epoch": 53,
+  "epochs_run": 60,
+  "val_f1_macro": 0.7770497623310637,
+  "val_acc": 0.7744979919678715,
+  "val_loss": 0.6249722138083125,
+  "n_params": 45573,
+  "train_time_s": 52.1,
+  "device": "mps",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "processor": "arm",
+  "python": "3.12.11",
+  "torch": "2.14.1"
+}

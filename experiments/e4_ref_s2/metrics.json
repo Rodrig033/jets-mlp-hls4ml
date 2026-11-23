@@ -1,0 +1,16 @@
+{
+  "name": "e4_ref",
+  "seed": 2,
+  "best_epoch": 49,
+  "epochs_run": 64,
+  "val_f1_macro": 0.776204995531837,
+  "val_acc": 0.7727550200803213,
+  "val_loss": 0.6332020270489306,
+  "n_params": 45829,
+  "train_time_s": 51.7,
+  "device": "mps",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "processor": "arm",
+  "python": "3.12.11",
+  "torch": "2.14.1"
+}

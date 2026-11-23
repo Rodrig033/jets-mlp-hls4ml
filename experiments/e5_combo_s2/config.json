@@ -1,0 +1,27 @@
+{
+  "name": "e5_combo",
+  "nota": "E5 cosine + SiLU + Yeo-Johnson + sin D2 duplicada",
+  "hidden": [
+    256,
+    128,
+    64
+  ],
+  "activation": "silu",
+  "dropout": 0.0,
+  "norm": null,
+  "init": "default",
+  "optimizer": "adam",
+  "lr": 0.003,
+  "weight_decay": 0.0,
+  "batch_size": 4096,
+  "epochs": 60,
+  "patience": 60,
+  "scheduler": "cosine",
+  "transform": "yeojohnson",
+  "drop_features": [
+    "d2_a1_b1_mmdt"
+  ],
+  "split_seed": 42,
+  "device": "auto",
+  "seed": 2
+}

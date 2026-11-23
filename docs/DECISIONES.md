@@ -135,3 +135,39 @@ Decisiones:
 - E5: combinar cosine + SiLU + Yeo-Johnson + sin D₂ duplicada, y elegir la
   final con 3 semillas entre e4_ref, e4_cosine y e5_combo. Se corren también
   las semillas 1 y 2 del modelo base para compararlo en prueba con media ± d.e.
+
+## E5 — Selección final (semillas 0, 1, 2)
+
+| Variante | F1m (media ± d.e.) | acc (media ± d.e.) | valores F1m |
+|---|---|---|---|
+| e5_combo | 0.7771 ± 0.0002 | 0.7746 ± 0.0002 | 0.7774 0.7770 0.7770 |
+| e4_cosine | 0.7767 ± 0.0005 | 0.7741 ± 0.0005 | 0.7768 0.7761 0.7771 |
+| e4_ref | 0.7759 ± 0.0004 | 0.7727 ± 0.0004 | 0.7761 0.7755 0.7762 |
+| baseline_hls4ml | 0.7727 ± 0.0004 | 0.7696 ± 0.0005 | 0.7725 0.7732 0.7725 |
+
+Conclusiones:
+1. Las mejoras pequeñas de E4 se suman: e5_combo supera a e4_ref en +0.0012 y
+   su peor semilla (0.7770) supera a la mejor de e4_ref (0.7762).
+2. Frente al modelo base: +0.0044 (~10 d.e.); las tres semillas de e5_combo
+   superan ampliamente a las tres del base.
+3. Frente a e4_cosine la diferencia (+0.0004) es pequeña y los rangos se
+   traslapan.
+
+Decisión — **configuración final: e5_combo** (`configs/FINAL.json`):
+15-256-128-64-5, SiLU, 45,573 parámetros, Yeo-Johnson, sin D₂ duplicada,
+Adam lr 3e-3, batch 4096, cosine annealing 60 épocas. Criterios (todos de
+validación): mayor media de F1-macro, menor variación entre semillas
+(0.0002) y una entrada redundante menos.
+
+Limitación reconocida: en implementaciones FPGA (objetivo original de hls4ml)
+ReLU es más barata que SiLU; para el objetivo de este trabajo (maximizar
+F1-macro) se prioriza SiLU.
+
+**Congelamiento:** arquitectura y protocolo fijados en el tag
+`v1.0-congelado` antes de evaluar el conjunto de prueba. Total de corridas de
+entrenamiento hasta este punto: 1 (E0) + 8 (E1) + 8 (E2) + 8 (E3: 4 variantes
+× semillas 1 y 2) + 8 (E4) + 9 (E5: 2 + 2 + 3 + 2 nuevas) = **42**.
+
+Evidencia de reproducibilidad: e4_ref es la misma configuración que
+e2_256-128-64 con otro nombre, y con las mismas semillas reprodujo exactamente
+los mismos F1m (0.7761, 0.7755, 0.7762).
