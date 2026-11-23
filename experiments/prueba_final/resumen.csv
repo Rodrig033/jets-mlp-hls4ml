@@ -1,0 +1,3 @@
+modelo,semillas,f1_macro_media,f1_macro_std,acc_media,acc_std,n_params,f1_g,f1_q,f1_t,f1_w,f1_z
+baseline_hls4ml,3,0.7705,0.0006,0.7674,0.0006,4389,0.7407,0.663,0.8375,0.7981,0.8133
+e5_combo,3,0.7746,0.0002,0.7722,0.0002,45573,0.7486,0.6674,0.842,0.8004,0.8147

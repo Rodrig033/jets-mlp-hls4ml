@@ -73,8 +73,10 @@ consigna, se usó **70/15/15 estratificado con semilla 42**:
 
 ## Desafíos identificados
 1. **Clases físicamente parecidas.** q/g tienen un solo núcleo; W y Z tienen la
-   misma topología de dos subchorros con masas separadas por ~11 GeV. Se espera
-   que la mayoría de los errores se concentren en estos pares.
+   misma topología de dos subchorros con masas separadas por ~11 GeV. Antes de
+   entrenar se esperaba que los errores se concentraran en q↔g y W↔Z. Los
+   resultados confirmaron q↔g, pero mostraron que la confusión dominante es
+   W/Z → q, y que W↔Z es menor y asimétrica (ver `docs/RESULTADOS.md`).
 2. **Redundancia entre características.** `d2_b1_mmdt` y `d2_a1_b1_mmdt` son
    idénticas (|r| = 1.000, mismos estadísticos): con (α, β) = (1, 1) el
    observable generalizado se reduce al D₂ con β = 1. Otros 9 pares tienen
