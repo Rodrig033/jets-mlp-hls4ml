@@ -100,7 +100,12 @@ Licencia CC BY 4.0: uso libre con atribución. Citar:
   particle physics. *Journal of Instrumentation*, 13(07), P07027.
   https://doi.org/10.1088/1748-0221/13/07/P07027
 - Pierini, M., Duarte, J. M., Tran, N., & Freytsis, M. (2020). *HLS4ML LHC Jet
-  dataset (150 particles)* [Data set]. Zenodo. https://doi.org/10.5281/zenodo.3602260
-  <!-- TODO: confirmar lista de autores en la página de Zenodo -->
+  dataset (150 particles)* (v1) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.3602260
+
+## Generación de los datos (Duarte et al., 2018)
+Eventos a 13 TeV generados con MadGraph5_aMC@NLO 2.3.1 (PDF NNPDF23LO1),
+cascada partónica y decaimientos con Pythia 8.212 (tune Monash 2013);
+200,000 eventos por estado final. Jets anti-kT con R = 0.8 (FastJet 3.1.3),
+pT de partón ≈ 1 TeV y jets reconstruidos con 0.8 < pT < 1.6 TeV.
 - Vanschoren, J., van Rijn, J. N., Bischl, B., & Torgo, L. (2013). OpenML:
   networked science in machine learning. *SIGKDD Explorations*, 15(2), 49–60.

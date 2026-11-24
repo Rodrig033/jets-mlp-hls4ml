@@ -1,16 +1,3 @@
-"""
-Carga, partición y preprocesamiento del dataset hls4ml LHC Jets (OpenML id 42468).
-
-Decisiones clave (para defender en clase):
-- OpenML no prescribe una partición oficial y los jets son eventos simulados
-  independientes (no hay pacientes, grupos ni orden temporal). Por eso, según
-  la consigna, usamos 70/15/15 estratificado con semilla registrada.
-- La estandarización (media 0, varianza 1) se AJUSTA SOLO con entrenamiento y
-  se aplica a validación y prueba. Ajustarla con todo el dataset filtraría
-  información de prueba al modelo (fuga de información).
-- Las particiones se guardan como índices en disco: cualquier corrida futura
-  (base, búsqueda, semillas, prueba final) usa exactamente las mismas filas.
-"""
 from pathlib import Path
 
 import numpy as np
@@ -82,17 +69,6 @@ def _validate(df: pd.DataFrame):
 
 
 def download(force: bool = False) -> Path:
-    """
-    Descarga el dataset una sola vez y lo guarda como CSV local.
-
-    1) Intenta sklearn.fetch_openml (verifica el md5 registrado en OpenML).
-    2) Si OpenML reporta un md5 que no coincide con el archivo que sirve
-       (inconsistencia observada el 2026-11-22: esperado b0cade1d...,
-       servido c5c0f961... en dos descargas idénticas), descarga el ARFF
-       directamente, valida su estructura y registra sus hashes en
-       data/DATA_INFO.json para que la versión usada quede documentada.
-    Si ya tienes el .arff en data/, se usa sin descargar.
-    """
     if DATA_FILE.exists() and not force:
         return DATA_FILE
     DATA_FILE.parent.mkdir(parents=True, exist_ok=True)

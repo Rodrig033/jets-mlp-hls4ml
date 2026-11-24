@@ -103,10 +103,11 @@ Eficiencia de señal a tasa fija de fondo aceptado (media de 3 semillas):
 | 1 % | Final | 0.424 | 0.169 | 0.665 | 0.651 | 0.710 |
 
 Hallazgos:
-1. **Validación externa del protocolo.** El AUC macro del modelo base
-   (0.9432) coincide con el reportado de forma independiente para el mismo
-   dataset y la misma arquitectura (0.9421, contribución en Indico CERN, 2026),
-   igual que su accuracy (76.74 % vs. 76.64 %).
+1. **Referencia externa.** El AUC macro del modelo base (0.9432) es muy
+   cercano al reportado de forma independiente para el mismo dataset de OpenML
+   con un MLP de punto flotante y 3 semillas (0.9421; Sloot, FastML 2026), igual
+   que su accuracy (76.74 % vs. 76.64 %). Ese resumen no especifica la
+   arquitectura ni la partición, así que la comparación es aproximada.
 2. **El modelo final mejora el AUC en las cinco clases** (+0.002 a +0.003),
    sin excepción y de forma idéntica en las tres semillas.
 3. **q no tiene una región "pura":** con 1 % de fondo solo se conserva el 17 %
